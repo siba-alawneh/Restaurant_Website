@@ -1,0 +1,182 @@
+﻿@model Restaurant_Website.ViewModels.MasterWorkingHourFullViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateOrUpdate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Day" class="control-label"></label>
+                <input asp-for="Day" class="form-control" />
+                <span asp-validation-for="Day" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeForm" class="control-label"></label>
+                <input asp-for="TimeForm" class="form-control" />
+                <span asp-validation-for="TimeForm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeTo" class="control-label"></label>
+                <input asp-for="TimeTo" class="form-control" />
+                <span asp-validation-for="TimeTo" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                </label>
+            </div>
+           
+           
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="reset" value="Clear" class="btn btn-warning" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Day)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeForm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeTo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+           
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.List) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Day)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.TimeForm)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.TimeTo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+
+                <td class="d-flex justify-content-center gap-3">
+
+
+                    <a class="btn btn-warning btnEdit" data-id="@item.Id" data-day="@item.Day" data-timefrom="@item.TimeForm"data-timeto="@item.TimeTo">Edit</a>
+
+                    <form asp-action="Delete" method="post" class="d-inline">
+                        <input type="hidden" asp-for="Id" value="@item.Id" />
+                        <button type="button" class="btn btn-danger btnDelete"> Delete </button>
+                    </form>
+
+                    <form asp-action="ChangeStatus" method="post" class="d-inline">
+                        <input type="hidden" asp-for="Id" value="@item.Id" />
+                        @if (item.IsActive)
+                        {
+                            <button type="button" class="btn btn-secondary btnChangeStatus"> DeActivate </button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-secondary btnChangeStatus"> Activate </button>
+                        }
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function() {
+            $(".btnEdit").click(function(){
+
+                var Id =  $(this).data("id")
+                var Day = $(this).data("day")
+                var TimeFrom = $(this).data("timefrom")
+                var TimeTo = $(this).data("timeto")
+
+                $("#Id").val(Id);
+                $("#Day").val(Day);
+                $("#TimeFrom").val(TimeFrom);
+                $("#TimeTo").val(TimeTo);
+
+            })
+
+
+            $(".btnDelete").click(function(){
+
+             Swal.fire({
+              title: "Are you sure?",
+              text: "You won't be able to revert this!",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Yes, delete it!"
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+                });
+
+                $(this).parent().submit();
+                }
+            });
+
+          })
+
+
+             $(".btnChangeStatus").click(function(){
+
+             Swal.fire({
+              title: "Are you sure?",
+              text: "You won't be able to revert this!",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Yes, Change it!"
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                Swal.fire({
+                title: "Status Changed!",
+                text: "Your Status has been changed.",
+                icon: "success"
+                });
+
+                $(this).parent().submit();
+                }
+            });
+
+          });
+          });
+
+
+    </script>
+}

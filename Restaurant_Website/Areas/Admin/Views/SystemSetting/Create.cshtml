@@ -1,0 +1,113 @@
+﻿@model Restaurant_Website.Models.SystemSetting
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>SystemSetting</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="LogoImageUrl" class="control-label"></label>
+                <input asp-for="LogoImageUrl" class="form-control" />
+                <span asp-validation-for="LogoImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LogoImageUrl2" class="control-label"></label>
+                <input asp-for="LogoImageUrl2" class="form-control" />
+                <span asp-validation-for="LogoImageUrl2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Copyright" class="control-label"></label>
+                <input asp-for="Copyright" class="form-control" />
+                <span asp-validation-for="Copyright" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WelcomeNoteTitle" class="control-label"></label>
+                <input asp-for="WelcomeNoteTitle" class="form-control" />
+                <span asp-validation-for="WelcomeNoteTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WelcomeNoteBreif" class="control-label"></label>
+                <input asp-for="WelcomeNoteBreif" class="form-control" />
+                <span asp-validation-for="WelcomeNoteBreif" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WelcomeNoteDesc" class="control-label"></label>
+                <input asp-for="WelcomeNoteDesc" class="form-control" />
+                <span asp-validation-for="WelcomeNoteDesc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WelcomeNoteImageUrl" class="control-label"></label>
+                <input asp-for="WelcomeNoteImageUrl" class="form-control" />
+                <span asp-validation-for="WelcomeNoteImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MapLocation" class="control-label"></label>
+                <input asp-for="MapLocation" class="form-control" />
+                <span asp-validation-for="MapLocation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WelcomeNoteImageUrl2" class="control-label"></label>
+                <input asp-for="WelcomeNoteImageUrl2" class="form-control" />
+                <span asp-validation-for="WelcomeNoteImageUrl2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WelcomeNoteImageUrl3" class="control-label"></label>
+                <input asp-for="WelcomeNoteImageUrl3" class="form-control" />
+                <span asp-validation-for="WelcomeNoteImageUrl3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WelcomeNoteImageUrl4" class="control-label"></label>
+                <input asp-for="WelcomeNoteImageUrl4" class="form-control" />
+                <span asp-validation-for="WelcomeNoteImageUrl4" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsDelete" /> @Html.DisplayNameFor(model => model.IsDelete)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateUser" class="control-label"></label>
+                <input asp-for="CreateUser" class="form-control" />
+                <span asp-validation-for="CreateUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreateDate" class="control-label"></label>
+                <input asp-for="CreateDate" class="form-control" />
+                <span asp-validation-for="CreateDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditUser" class="control-label"></label>
+                <input asp-for="EditUser" class="form-control" />
+                <span asp-validation-for="EditUser" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditDate" class="control-label"></label>
+                <input asp-for="EditDate" class="form-control" />
+                <span asp-validation-for="EditDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

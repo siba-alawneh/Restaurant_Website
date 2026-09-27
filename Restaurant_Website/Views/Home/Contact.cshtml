@@ -1,0 +1,108 @@
+﻿@using Restaurant_Website.ViewModels
+@{
+    Layout = "_Layout1";
+}
+@model HomeViewModel
+<div class="breadcrumb-area bg-img ptb-80" style="background-image:url(@Model.MasterAbout.ImageUrl)">
+    <div class="container">
+        <div class="breadcrumb-content text-center">
+            <h3>Contact us</h3>
+            <ul>
+                <li>
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                <li class="active">Contact us</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="contact-area pt-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="contact-message-wrapper">
+                    <h4 class="contact-title mb-25">Leave Us a Message</h4>
+                    <div class="contact-message">
+                        <form asp-controller="Home" asp-action="SendMessage" method="post">
+                            @Html.AntiForgeryToken()
+
+                            <div class="row">
+
+                                <div class="col-lg-6">
+                                    <div class="contact-form-style mb-20">
+                                        <input name="FullName" placeholder="Full Name" type="text" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="contact-form-style mb-20">
+                                        <input name="Email" placeholder="Email Address" type="email" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="contact-form-style mb-20">
+                                        <input name="Subject" placeholder="Subject" type="text" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="contact-form-style">
+                                        <textarea name="Message" placeholder="Message" required></textarea>
+
+                                        <button class="submit btn-style" type="submit">
+                                            SEND MESSAGE
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                        <p class="form-messege"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="contact-info-area">
+                    <h4 class="contact-title mb-18">Contact Us</h4>
+                    <p>@Model.MasterContactUsInformation.Desc</p>
+                    <div class="contact-info-wrap">
+                        <div class="single-contact-info mb-40">
+                            <div class="contact-info-icon">
+                                <i class="fa fa-map-marker"></i>
+                            </div>
+                            <div class="contact-info-content">
+                                <h4>Location :</h4>
+                                <p>@Model.MasterContactUsInformation.Location</p>
+                            </div>
+                        </div>
+                        <div class="single-contact-info mb-35">
+                            <div class="contact-info-icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="contact-info-content">
+                                <h4>phone :</h4>
+                                <p>@Model.MasterContactUsInformation.PhoneNumber1</p>
+                                <p>@Model.MasterContactUsInformation.PhoneNumber2</p>
+                            </div>
+                        </div>
+                        <div class="single-contact-info">
+                            <div class="contact-info-icon">
+                                <i class="fa fa-envelope"></i>
+                            </div>
+                            <div class="contact-info-content">
+                                <h4>mail :</h4>
+                                <p><a href="#">@Model.MasterContactUsInformation.Email1</a></p>
+                                <p><a href="#">@Model.MasterContactUsInformation.Email2</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+@*         <div class="map-area pt-100">
+            <div id="googleMap"></div>
+        </div> *@
+    </div>
+</div>
+<div class="pt-50"></div>

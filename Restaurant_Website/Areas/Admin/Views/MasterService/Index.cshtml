@@ -1,0 +1,229 @@
+﻿@model Restaurant_Website.ViewModels.MasterServiceFullViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<link rel="stylesheet" href="https://cdn.datatables.net/2.3.3/css/dataTables.dataTables.min.css">
+<link rel="stylesheet" href="~/AdminTemplate/assets/css/Custombootstrap.css" />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateOrUpdate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id"/>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Desc" class="control-label"></label>
+                <input asp-for="Desc" class="form-control" />
+                <span asp-validation-for="Desc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Icon" class="control-label"></label>
+                <input asp-for="Icon" class="form-control" />
+                <span asp-validation-for="Icon" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                </label>
+            </div>
+          
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="reset" value="Clear" class="btn btn-warning" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<div class="table-responsive">
+    <table id="masterAboutTable" class="table table-editable table-nowrap align-middle table-edits">
+<thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Desc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Icon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+           
+        <th class="text-center">Actions</th>
+    </tr>
+</thead>
+<tbody>
+@foreach (var item in Model.List) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @* @Html.DisplayFor(modelItem => item.Desc) *@
+            @if (item.Desc != null && item.Desc.Length > 30)
+            {
+                @item.Desc.Substring(0, 30)
+                <span>...</span>
+                <a href="#" class="showDescription" data-description="@item.Desc">Read More..</a>
+            }
+            else
+            {
+                @item.Desc
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Icon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+           
+        <td class="d-flex justify-content-end gap-2">
+
+            <a class="btn btn-warning btnEdit" data-id="@item.Id" data-title="@item.Title" data-desc="@item.Desc">Edit</a>
+            <input type="hidden" class="itemIcon" value="@item.Icon" />
+            <form asp-action="Delete" method="post" class="d-inline">
+                <input type="hidden" asp-for="Id" value="@item.Id" />
+                <button type="button" class="btn btn-danger btnDelete"> Delete </button>
+            </form>
+
+            <form asp-action="ChangeStatus" method="post" class="d-inline">
+                <input type="hidden" asp-for="Id" value="@item.Id" />
+                @if (item.IsActive)
+                {
+                    <button type="button" class="btn btn-secondary btnChangeStatus"> DeActivate </button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-secondary btnChangeStatus"> Activate </button>
+                }
+            </form>
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+</div>
+
+
+<div id="descriptionPopup" class="description-popup">
+    <div class="description-box">
+
+        <span class="close-button">&times;</span>
+
+        <h4>Description</h4>
+
+        <p id="fullDescription"></p>
+
+    </div>
+
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function() {
+            $(".btnEdit").click(function(){
+
+                var Id =  $(this).data("id")
+                var Desc = $(this).data("desc")
+                var Title = $(this).data("title")
+                var Icon = $(this).siblings(".itemIcon").val();
+
+
+                $("#Id").val(Id);
+                $("#Title").val(Title);
+                $("#Desc").val(Desc);
+                $("#Icon").val(Icon);
+
+            })
+
+
+            $(".btnDelete").click(function(){
+
+             Swal.fire({
+              title: "Are you sure?",
+              text: "You won't be able to revert this!",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Yes, delete it!"
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+                });
+
+                $(this).parent().submit();
+                }
+            });
+
+          })
+
+
+             $(".btnChangeStatus").click(function(){
+
+             Swal.fire({
+              title: "Are you sure?",
+              text: "You won't be able to revert this!",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Yes, Change it!"
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                Swal.fire({
+                title: "Status Changed!",
+                text: "Your Status has been changed.",
+                icon: "success"
+                });
+
+                $(this).parent().submit();
+                }
+            });
+
+
+          });
+
+            // Show Description
+            $(".showDescription").click(function (e) {
+                e.preventDefault();
+
+                var description = $(this).data("description");
+
+                $("#fullDescription").text(description);
+                $("#descriptionPopup").show();
+            });
+
+
+            // Close Description
+            $(".close-button").click(function () {
+                $("#descriptionPopup").hide();
+            });
+          });
+
+
+    </script>
+}

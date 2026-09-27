@@ -1,0 +1,80 @@
+﻿@using Restaurant_Website.ViewModels
+@{
+    Layout = "_Layout1";
+}
+@model HomeViewModel
+
+<div class="breadcrumb-area bg-img ptb-80" style="background-image:url(/ClientTemplate/assets/img/banner/breath.jpg);">
+    <div class="container">
+        <div class="breadcrumb-content text-center">
+            <h3>about us</h3>
+            <ul>
+                <li>
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                <li class="active">about us </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="about-area ptb-95">
+    <div class="container">
+        <div class="row d-flex align-items-center">
+            <div class="col-lg-6">
+                <div class="about-content pr-30">
+                    @Html.Raw(Model.MasterAbout.Title)
+                     @Html.Raw( @Model.MasterAbout.Brief)
+                    <div class="about-peragraph">
+                        @Html.Raw(@Model.MasterAbout.Desc)
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="about-img">
+                    <img alt="" src="@Model.MasterAbout.ImageUrl">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="services-area pt-100 pb-70 gray-bg">
+    <div class="container">
+        <div class="section-title text-center mb-50">
+            <h2>Our Services</h2>
+            <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim nostrud exercitation ullamco laboris nisi.</p>
+        </div>
+        <div class="row">
+            @foreach(var item in Model.MasterService)
+            {
+                <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                    <div class="single-service text-center mb-30">
+                        @* <i class="fa fa-cutlery"></i> *@
+                        <i class="@item.Icon"></i>
+                        @* <h3>100% healthy food</h3> *@
+                        <h3>@item.Title</h3>
+                        @* <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p> *@
+                        <p> @item.Desc</p>
+                    </div>
+                </div>
+            }
+       
+           
+           @*  <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                <div class="single-service text-center mb-30">
+                    <i class="fa fa-cogs"></i>
+                    <h3>need & clean service</h3>
+                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                <div class="single-service text-center mb-30">
+                    <i class="fa fa-heart-o"></i>
+                    <h3>healthy environment </h3>
+                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                </div>
+            </div> *@
+        </div>
+    </div>
+</div>
