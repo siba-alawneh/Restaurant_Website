@@ -10,15 +10,15 @@ namespace Restaurant_Website.Helpers.Email
         {
             //Email sending logic here
 
-            var FromEmail = "sibaalawneh22@gmail.com";
-            var AppPassword = "xmbbvhueszpjhoqb";
+            var FromEmail = "YOUR EMAIL";
+            var AppPassword = "YOUR PASSWORD";
             var SMTPServer = "smtp.gmail.com";
             var SMTPPort = 465;
 
             //Email Message
 
             var EmailMessage = new MimeMessage();
-            EmailMessage.From.Add(new MailboxAddress("Siba Alawneh", FromEmail));
+            EmailMessage.From.Add(new MailboxAddress("NAME", FromEmail));
             EmailMessage.To.Add(MailboxAddress.Parse(model.EmailAddress));
             EmailMessage.Subject = model.Subject;
             EmailMessage.Body = new TextPart("plain") { Text = model.Message };
